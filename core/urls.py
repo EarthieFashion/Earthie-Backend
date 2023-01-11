@@ -10,6 +10,7 @@ urlpatterns = [
     path('sliderOffers/', views.sliderOffers, name="sliderOffers"),
     path('homeOffers/', views.homeOffers, name="homeOffers"),
     path('homeProds/', views.homeProds, name="homeProds"),
+    path('offerProds/', views.offerProds, name="offerProds"),
     path('newArrivals/', views.newArrivals, name="newArrivals"),
     path('collections/', views.collections, name="collections"),
     path('collections/<str:col>/',views.specificCollections, name="products"),

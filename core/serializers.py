@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import OfferSlider, homeBlockOffers, Products, Category, Collection, User
+from .models import OfferSlider, homeBlockOffers, Products, Category, Collection, User, Offers
 
 class SliderOfferSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,3 +44,10 @@ class UserSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
+
+
+class OffersSerializer(serializers.ModelSerializer):
+    # offerProduct = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = Offers
+        fields = '__all__'

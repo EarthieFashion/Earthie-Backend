@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, OfferSlider, homeBlockOffers, Category, Products, Collection
+from .models import User, OfferSlider, homeBlockOffers, Category, Products, Collection, Offers
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
@@ -42,3 +42,9 @@ class CollectionAdmin(admin.ModelAdmin):
     search_fields = ('collectionName','dateCreated')
 
 admin.site.register(Collection,CollectionAdmin)
+
+class OfferAdmin(admin.ModelAdmin):
+    list_display = ('offerName','offerProduct','offerPrice','offerBy','is_available')
+    search_fields = ('offerName','offerProduct','offerBy')
+
+admin.site.register(Offers,OfferAdmin)

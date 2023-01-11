@@ -76,21 +76,25 @@ class homeBlockOffers(models.Model):
     def __str__(self):
         return self.offerName
 
+
 class Category(models.Model):
     categoryName = models.CharField(max_length=255)
     dateCreated = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return self.categoryName
-        
+
+
 class Collection(models.Model):
     collectionName = models.CharField(max_length=255)
     dateCreated = models.TimeField(auto_now_add=True)
     is_published = models.BooleanField(default=False)
-    collectionImage = models.ImageField(upload_to='images/collection/', null=True)
+    collectionImage = models.ImageField(
+        upload_to='images/collection/', null=True)
 
     def __str__(self):
         return self.collectionName
+
 
 class Products(models.Model):
     productSKU = models.CharField(max_length=255)
@@ -98,21 +102,28 @@ class Products(models.Model):
     productPrice = models.CharField(max_length=255)
     stock = models.CharField(max_length=255)
     productImage = models.ImageField(upload_to='images/products/')
-    miscImage1 = models.ImageField(upload_to='images/products/', null=True, blank=True, default="")
-    miscImage2 = models.ImageField(upload_to='images/products/', null=True, blank=True, default="")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True, blank=True, default="")
+    miscImage1 = models.ImageField(
+        upload_to='images/products/', null=True, blank=True, default="media/images/products/Screenshot_2023-01-01_105220.png")
+    miscImage2 = models.ImageField(
+        upload_to='images/products/', null=True, blank=True, default="media/images/products/Screenshot_2023-01-01_105220.png")
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=True, blank=True, default="")
     is_published = models.BooleanField(default=False)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
     dateAdded = models.DateTimeField(auto_now_add=True, null=True)
     material = models.CharField(max_length=255, default='100% Cotton')
     care = models.CharField(max_length=255, default='Machine Wash')
+    is_in_offer = models.BooleanField(default=False)
+    offerPrice = models.CharField(max_length=255, null=True, default="100")
+    offerBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    offerName = models.CharField(max_length=255, null=True, default='')
 
     def __str__(self):
         return self.prodcutName
 
 
 class Offers(models.Model):
-    offerName =  models.CharField(max_length=255)
+    offerName = models.CharField(max_length=255)
     offerProduct = models.ForeignKey(Products, on_delete=models.CASCADE)
     offerPrice = models.CharField(max_length=255)
     offerBy = models.ForeignKey(User, on_delete=models.CASCADE)

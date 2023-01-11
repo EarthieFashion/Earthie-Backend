@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import OfferSlider, homeBlockOffers, Products, Category, Collection
-from .serializers import SliderOfferSerializer, HomeBlockOfferSerializer, ProductSerializer, CollectionSerializer, UserSerializer
+from .models import OfferSlider, homeBlockOffers, Products, Category, Collection, Offers
+from .serializers import SliderOfferSerializer, HomeBlockOfferSerializer, ProductSerializer, CollectionSerializer, UserSerializer,OffersSerializer
 from rest_framework import status
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -135,5 +135,13 @@ def homeProds(request):
     allProds = allProds.order_by('-dateAdded')[:13]
     data = ProductSerializer(allProds, many=True).data
     return Response(data, status=status.HTTP_200_OK)
+
+@api_view(('GET',))
+def offerProds(request):
+    allProds = Products.objects.all()
+    allProds = allProds.filter(is_in_offer=True)
+    data = ProductSerializer(allProds, many=True).data
+    return Response(data, status=status.HTTP_200_OK)
+
 
 
